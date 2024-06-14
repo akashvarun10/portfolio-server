@@ -1,13 +1,16 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
+
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import dotenv from 'dotenv';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+dotenv.config();
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://varun:varun123@portfolio.acdj1td.mongodb.net/?retryWrites=true&w=majority&appName=portfolio', {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -29,7 +32,6 @@ const Project = mongoose.model('Project', projectSchema);
 app.post('/projects', async (req, res) => {
   const { title, description, category, github, demo, images } = req.body;
   const newProject = new Project({ title, description, category, github, demo, images });
-
   try {
     await newProject.save();
     res.status(201).json(newProject);
@@ -49,7 +51,6 @@ app.get('/projects', async (req, res) => {
 });
 
 // Start the server
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
   console.log('Server started on port 3000');
 });
-
