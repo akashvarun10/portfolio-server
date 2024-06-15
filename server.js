@@ -49,5 +49,9 @@ app.get('/projects', async (req, res) => {
   }
 });
 
-// Export the app for serverless function
-export default app;
+const PORT = process.env.PORT
+
+// Start the server
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server started on port ${PORT}`);
+});
