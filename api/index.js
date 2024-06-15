@@ -49,9 +49,11 @@ app.get('/projects', async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3000;
 
 // Start the server
-app.listen(PORT, "0.0.0.0", () => {
+app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
+
+export default app;
