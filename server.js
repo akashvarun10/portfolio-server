@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDB from './app/config/db.js';
 import projectRoutes from './app/routes/projectRoutes.js';
+// import os from 'os';
 
 dotenv.config(); // Load environment variables from .env file
 
@@ -10,7 +11,12 @@ const app = express();
 app.use(cors()); // Enable Cross-Origin Resource Sharing
 app.use(express.json()); // Parse JSON bodies
 
+
 connectDB(); // Connect to MongoDB
+
+app.get('/', (req, res) => {
+  res.send('Server is running');
+});
 
 // Use project routes for handling '/projects' endpoint
 app.use('/projects', projectRoutes);
